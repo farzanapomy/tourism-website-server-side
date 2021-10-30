@@ -1,7 +1,7 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
-const { serialize } = require('bson');
+const ObjectId = require('mongodb').ObjectId;
 
 const app = express();
 
@@ -30,11 +30,18 @@ async function run() {
 
         app.get('/features', async (req, res) => {
             const cursor = featureCollection.find({});
-            const features = cursor.toArray();
+            const features = await cursor.toArray();
             res.send(features)
         })
 
-
+        // find single data 
+        // app.get('/feature/:id', (req, res) => {
+        //     const id = req.params.id;
+        //     console.log('getting feature',id)
+        //     const query = { _id: ObjectId(id) };
+        //     const feature= await featureCollection.findOne(query);
+        //     res.json(feature); 
+        // })
 
 
         // post data 
@@ -42,7 +49,7 @@ async function run() {
             const feature = req.body;
 
             const result = await featureCollection.insertOne(feature);
-            console.log(feature);
+            console.log(result);
             res.json(result)
         })
 
