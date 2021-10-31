@@ -64,13 +64,21 @@ async function run() {
         })
 
         // get Order 
-        app.get('/myOrders', async (req, res) => {
-            const cursor= orderCollection.find({});
-            const result=await cursor.toArray();
+        app.get('/bookticket', async (req, res) => {
+            const cursor = orderCollection.find({});
+            const result = await cursor.toArray();
             res.send(result)
             console.log(result);
         })
 
+
+        // delete Order 
+        app.delete('/bookticket/:id', async (req, res) => {
+            const id = req.params.id;
+            const query={_id:ObjectId(id)};
+            const result=await orderCollection.deleteOne(query);
+            res.send(result);
+        })
 
 
     }
