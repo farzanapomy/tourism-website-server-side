@@ -36,12 +36,12 @@ async function run() {
         })
 
         // find single data 
-        app.get('/features/:id', async(req, res) => {
+        app.get('/features/:id', async (req, res) => {
             const id = req.params.id;
-            console.log('getting feature',id)
+            console.log('getting feature', id)
             const query = { _id: ObjectId(id) };
-            const feature= await featureCollection.findOne(query);
-            res.json(feature); 
+            const feature = await featureCollection.findOne(query);
+            res.json(feature);
         })
 
 
@@ -55,12 +55,20 @@ async function run() {
         })
 
         // post data 
-        app.post('/features', async (req, res) => {
+        app.post('/bookFeature', async (req, res) => {
             const feature = req.body;
             const result = await orderCollection.insertOne(feature);
 
             console.log(result)
-            res.send('hitting the post')
+            res.json(result);
+        })
+
+        // get Order 
+        app.get('/myOrders', async (req, res) => {
+            const cursor= orderCollection.find({});
+            const result=await cursor.toArray();
+            res.send(result)
+            console.log(result);
         })
 
 
