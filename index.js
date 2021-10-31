@@ -25,6 +25,7 @@ async function run() {
 
         const database = client.db('travelTour');
         const featureCollection = database.collection('features');
+        const orderCollection = database.collection('bookFeature');
 
         // get data 
 
@@ -35,13 +36,13 @@ async function run() {
         })
 
         // find single data 
-        // app.get('/feature/:id', (req, res) => {
-        //     const id = req.params.id;
-        //     console.log('getting feature',id)
-        //     const query = { _id: ObjectId(id) };
-        //     const feature= await featureCollection.findOne(query);
-        //     res.json(feature); 
-        // })
+        app.get('/features/:id', async(req, res) => {
+            const id = req.params.id;
+            console.log('getting feature',id)
+            const query = { _id: ObjectId(id) };
+            const feature= await featureCollection.findOne(query);
+            res.json(feature); 
+        })
 
 
         // post data 
@@ -51,6 +52,15 @@ async function run() {
             const result = await featureCollection.insertOne(feature);
             console.log(result);
             res.json(result)
+        })
+
+        // post data 
+        app.post('/features', async (req, res) => {
+            const feature = req.body;
+            const result = await orderCollection.insertOne(feature);
+
+            console.log(result)
+            res.send('hitting the post')
         })
 
 
