@@ -49,7 +49,7 @@ async function run() {
             const feature = req.body;
 
             const result = await featureCollection.insertOne(feature);
-            console.log(result);
+            // console.log(result);
             res.json(result)
         })
 
@@ -58,7 +58,7 @@ async function run() {
             const feature = req.body;
             const result = await orderCollection.insertOne(feature);
 
-            console.log(result)
+            // console.log(result)
             res.json(result);
         })
 
@@ -67,17 +67,19 @@ async function run() {
             const cursor = orderCollection.find({});
             const result = await cursor.toArray();
             res.send(result)
-            console.log(result);
+            // console.log(result);
         })
 
-       
 
 
-        // update data 
+
+        // get data 
         app.get('/myOrders/:email', async (req, res) => {
-            const email = req.params.email
-            console.log(email)
-            res.send('updating')
+            const email = req.params.email;
+            const cursor = orderCollection.find({ email: email });
+            const result = await cursor.toArray()
+            console.log(result);
+            res.send(result)
         })
 
 
@@ -87,7 +89,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await orderCollection.deleteOne(query);
-            console.log(query)
+            // console.log(query)
             res.send(result);
         })
 
@@ -98,7 +100,7 @@ async function run() {
     }
 }
 
-run().catch(console.dir)
+run().catch(console.dir);
 
 
 
