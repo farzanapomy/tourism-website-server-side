@@ -78,17 +78,30 @@ async function run() {
             const email = req.params.email;
             const cursor = orderCollection.find({ email: email });
             const result = await cursor.toArray()
-            console.log(result);
+            // console.log(result);
             res.send(result)
         })
 
 
 
         // approve data 
-        app.put('/myOrder/:id',async(req,res)=>{
-            console.log('hitting the post')
-            res.send('hello')
-        })
+        // app.put('/myOrders/:id', async (req, res) => {
+        //     const id=req.params.id;
+        //     const approveOrder=req.body;
+        //     const filter={_id:ObjectId(id)};
+        //     const options={upsert:true}
+        //     const updatedDoc={
+        //         $set:{
+        //             name:approveOrder.name,
+        //             email:approveOrder.email,
+        //             address:approveOrder.address,
+        //             // status:"approved"
+        //         }
+        //     }
+        //     const result=await orderCollection.updateOne(filter,updatedDoc,options)
+        //     console.log('update',id)
+        //     res.json(result)
+        // })
 
 
 
