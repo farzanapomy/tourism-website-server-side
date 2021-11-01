@@ -26,6 +26,7 @@ async function run() {
         const database = client.db('travelTour');
         const featureCollection = database.collection('features');
         const orderCollection = database.collection('bookFeature');
+        const chooseCollection = database.collection('choose');
 
         // get data 
 
@@ -34,6 +35,17 @@ async function run() {
             const features = await cursor.toArray();
             res.send(features)
         })
+
+        app.get('/choose', async (req, res) => {
+            const cursor = chooseCollection.find({});
+            const chooses = await cursor.toArray();
+            res.send(chooses)
+        })
+
+        
+
+
+
 
         // find single data 
         app.get('/features/:id', async (req, res) => {
@@ -64,7 +76,7 @@ async function run() {
         })
 
         // get Order 
-        app.get('/bookticket', async (req, res) => {
+        app.get('/myOrders', async (req, res) => {
             const cursor = orderCollection.find({});
             const result = await cursor.toArray();
             res.send(result)
@@ -73,10 +85,12 @@ async function run() {
 
 
         // delete Order 
-        app.delete('/bookticket/:id', async (req, res) => {
+        app.delete('/myOrders/:id', async (req, res) => {
             const id = req.params.id;
             const query={_id:ObjectId(id)};
             const result=await orderCollection.deleteOne(query);
+
+
             res.send(result);
         })
 
