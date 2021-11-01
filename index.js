@@ -36,13 +36,14 @@ async function run() {
             res.send(features)
         })
 
-        app.get('/choose', async (req, res) => {
+        app.get('/ourWinning', async (req, res) => {
             const cursor = chooseCollection.find({});
+            console.log(cursor.body)
             const chooses = await cursor.toArray();
-            res.send(chooses)
+            res.send(chooses);
         })
 
-        
+
 
 
 
@@ -83,12 +84,19 @@ async function run() {
             console.log(result);
         })
 
+        //update order
+        app.put()
+
+
+
+
+
 
         // delete Order 
         app.delete('/myOrders/:id', async (req, res) => {
             const id = req.params.id;
-            const query={_id:ObjectId(id)};
-            const result=await orderCollection.deleteOne(query);
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
 
 
             res.send(result);
