@@ -26,7 +26,6 @@ async function run() {
         const database = client.db('travelTour');
         const featureCollection = database.collection('features');
         const orderCollection = database.collection('bookFeature');
-        const chooseCollection = database.collection('choose');
 
         // get data 
 
@@ -35,17 +34,6 @@ async function run() {
             const features = await cursor.toArray();
             res.send(features)
         })
-
-        app.get('/ourWinning', async (req, res) => {
-            const cursor = chooseCollection.find({});
-            console.log(cursor)
-            const chooses = await cursor.toArray();
-            res.send(chooses);
-        })
-
-
-
-
 
 
         // find single data 
@@ -85,6 +73,13 @@ async function run() {
         })
 
 
+
+        // update data 
+        app.put('/myOrders/:id', async (req, res) => {
+            const id = req.params.id
+            console.log(id)
+            res.send('updating')
+        })
 
 
 
