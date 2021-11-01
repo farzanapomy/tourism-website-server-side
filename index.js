@@ -84,6 +84,14 @@ async function run() {
 
 
 
+        // approve data 
+        app.put('/myOrder/:id',async(req,res)=>{
+            console.log('hitting the post')
+            res.send('hello')
+        })
+
+
+
         // delete Order 
         app.delete('/myOrders/:id', async (req, res) => {
             const id = req.params.id;
