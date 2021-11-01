@@ -38,7 +38,7 @@ async function run() {
 
         app.get('/ourWinning', async (req, res) => {
             const cursor = chooseCollection.find({});
-            console.log(cursor.body)
+            console.log(cursor)
             const chooses = await cursor.toArray();
             res.send(chooses);
         })
@@ -84,10 +84,6 @@ async function run() {
             console.log(result);
         })
 
-        //update order
-        app.put()
-
-
 
 
 
@@ -97,8 +93,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await orderCollection.deleteOne(query);
-
-
+            console.log(query)
             res.send(result);
         })
 
