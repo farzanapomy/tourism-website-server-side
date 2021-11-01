@@ -6,7 +6,6 @@ const ObjectId = require('mongodb').ObjectId;
 const app = express();
 
 // middleware 
-
 app.use(cors());
 app.use(express.json())
 
@@ -17,7 +16,7 @@ const port = process.env.PORT || 5000;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fjoai.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-console.log(uri)
+// console.log(uri)
 
 async function run() {
     try {
@@ -28,7 +27,6 @@ async function run() {
         const orderCollection = database.collection('bookFeature');
 
         // get data 
-
         app.get('/features', async (req, res) => {
             const cursor = featureCollection.find({});
             const features = await cursor.toArray();
@@ -72,12 +70,13 @@ async function run() {
             console.log(result);
         })
 
+       
 
 
         // update data 
-        app.put('/myOrders/:id', async (req, res) => {
-            const id = req.params.id
-            console.log(id)
+        app.get('/myOrders/:email', async (req, res) => {
+            const email = req.params.email
+            console.log(email)
             res.send('updating')
         })
 
